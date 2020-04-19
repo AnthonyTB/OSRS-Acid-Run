@@ -3,8 +3,8 @@ import './Node.css';
 
 export default function Node(props) {
   const { col, isVisited, row } = props;
-  console.log(isVisited());
-  const visitStatus = isVisited() ? 'visited' : 'unvisited';
+  console.log(isVisited);
+  const visitStatus = isVisited ? 'visited' : 'unvisited';
   const startStatus = props.isStart ? 'start' : '';
 
   return (

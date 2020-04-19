@@ -52,10 +52,10 @@ function App() {
         col,
         row,
         isStart: row === state.start.row && col === state.start.col,
-        isVisited: () =>
+        isVisited:
           state.visited.length > 0
-            ? state.visited.forEach((tile) =>
-                row === tile.newRow && col === tile.newCol ? true : false
+            ? state.visited.some((tile) =>
+                row === tile.row && col === tile.col ? true : false
               )
             : false,
       };
@@ -86,7 +86,7 @@ function App() {
     if (state.isPregame) {
       dataSetter('start', { row: newRow, col: newCol });
     } else {
-      const newArr = state.visited.concat({ newRow, newCol });
+      const newArr = state.visited.concat({ row: newRow, col: newCol });
       dataSetter('visited', newArr);
       dataSetter('start', { row: newRow, col: newCol });
     }
