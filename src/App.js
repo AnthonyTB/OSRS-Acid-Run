@@ -55,13 +55,29 @@ function App() {
         isVisited:
           state.visited.length > 0
             ? state.visited.some((tile) =>
-                row === tile.row && col === tile.col ? true : false
+                row === tile.row && col === tile.col
+                  ? tile.timer > 0
+                    ? true
+                    : false
+                  : false
               )
             : false,
       };
     },
     [state.start.col, state.start.row, state.visited]
   );
+  useEffect(() => {
+    const decrementNodeTimer = () => {
+      state.visited.forEach((node) => {
+        if (node.timer > 0) {
+          setInterval(() => {
+            node.timer = node.timer - 1;
+          }, 1000);
+        }
+      });
+    };
+    decrementNodeTimer();
+  });
 
   useEffect(() => {
     const getInitialGrid = () => {
@@ -86,7 +102,11 @@ function App() {
     if (state.isPregame) {
       dataSetter('start', { row: newRow, col: newCol });
     } else {
-      const newArr = state.visited.concat({ row: newRow, col: newCol });
+      const newArr = state.visited.concat({
+        row: newRow,
+        col: newCol,
+        timer: 10,
+      });
       dataSetter('visited', newArr);
       dataSetter('start', { row: newRow, col: newCol });
     }
