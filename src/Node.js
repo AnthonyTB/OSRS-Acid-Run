@@ -1,6 +1,7 @@
 import React from 'react';
 import './Node.css';
 
+// Renders each node
 export default function Node(props) {
   const { col, isVisited, row } = props;
   console.log(isVisited);

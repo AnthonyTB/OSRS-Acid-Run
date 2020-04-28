@@ -3,6 +3,7 @@ import './App.css';
 import Node from './Node';
 
 function App() {
+  // Creates the Reducer for state management
   const Reducer = (prevState, { type, payload }) => {
     switch (type) {
       case 'start':
@@ -26,10 +27,11 @@ function App() {
           isPregame: payload.isPregame,
         };
       default:
-        return '';
+        return;
     }
   };
 
+  // Sets initial vals for state
   const [state, dispatch] = useReducer(Reducer, {
     start: { row: 2, col: 10 },
     visited: [],
@@ -37,6 +39,7 @@ function App() {
     isPregame: true,
   });
 
+  // Used to update vals in state
   const dataSetter = (section, data) => {
     dispatch({
       type: `${section}`,
@@ -46,6 +49,7 @@ function App() {
     });
   };
 
+  // Creates the node table
   const createNode = useCallback(
     (col, row) => {
       return {
@@ -66,19 +70,22 @@ function App() {
     },
     [state.start.col, state.start.row, state.visited]
   );
+
+  // Timer for removing visited css class
   useEffect(() => {
     const decrementNodeTimer = () => {
       state.visited.forEach((node) => {
         if (node.timer > 0) {
           setInterval(() => {
-            node.timer = node.timer - 1;
+            node.timer = --node.timer;
           }, 1000);
         }
       });
     };
     decrementNodeTimer();
-  });
+  }, [state.visited]);
 
+  // Initiates the node table and updates table each change
   useEffect(() => {
     const getInitialGrid = () => {
       const grid = [];
@@ -94,6 +101,7 @@ function App() {
     dataSetter('grid', getInitialGrid());
   }, [createNode]);
 
+  // Click handler for nodes
   const handleClick = (ev) => {
     ev.preventDefault();
     const node = ev.target.id.split('-');
@@ -112,6 +120,7 @@ function App() {
     }
   };
 
+  // Initiates the game
   const startGame = () => {
     dataSetter('isPregame', false);
     console.log('Starting...');
