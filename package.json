@@ -3,21 +3,33 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reach/router": "^1.3.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-scripts": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/reach__router": "^1.3.5",
+    "@types/react": "^16.9.49",
+    "@types/react-dom": "^16.9.8",
+    "prettier": "^2.1.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^5.0.0",
+    "typescript": "^4.0.2",
+    "jest": "^26.4.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "lint": "tsslint --project",
+    "dev": "react-scripts start",
+    "typecheck": "tsc --noEmit",
+    "test": "jest",
+    "test:update": "jest -- -u",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "browserslist": {
     "production": [
